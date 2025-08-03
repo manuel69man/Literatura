@@ -2,16 +2,29 @@ package com.aluracursos.literatura.models;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "idiomas")
 public class Idiomas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
- //   @Column(unique = true)
+
+    @Column(unique = true)
     private String idioma;
-    @ManyToOne
-    private Libro libro;
+
+    @ManyToMany(mappedBy = "idiomas")
+    private Set<Libro2> libros;
+
+
+    public Set<Libro2> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Set<Libro2> libros) {
+        this.libros = libros;
+    }
 
     public Long getId() {
         return id;
@@ -21,12 +34,7 @@ public class Idiomas {
         this.id = id;
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public Idiomas() {
     }
 
     public Idiomas(String idioma) {
@@ -40,4 +48,10 @@ public class Idiomas {
     public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
+
+    @Override
+    public String toString() {
+        return getIdioma();
+    }
 }
+
