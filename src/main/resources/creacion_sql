@@ -1,0 +1,35 @@
+CREATE TABLE libros (
+    id SERIAL PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+	numero_de_descargas BIGINT
+);
+
+CREATE TABLE autores (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+	ano_de_nacimiento INTEGER,
+	ano_de_muerte INTEGER
+);
+
+CREATE TABLE idiomas (
+    id SERIAL PRIMARY KEY,
+    idioma VARCHAR(255) NOT NULL
+);
+
+
+
+CREATE TABLE  libros_autores (
+    libro_id INT NOT NULL,
+    autor_id INT NOT NULL,
+    PRIMARY KEY (libro_id, autor_id),
+    FOREIGN KEY (libro_id) REFERENCES libros (id) ON DELETE CASCADE,
+    FOREIGN KEY (autor_id) REFERENCES autores (id) ON DELETE CASCADE
+);
+
+CREATE TABLE  libros_idiomas (
+    libro_id INT NOT NULL,
+    idioma_id INT NOT NULL,
+    PRIMARY KEY (idioma_id),
+    FOREIGN KEY (libro_id) REFERENCES libros (id) ON DELETE CASCADE,
+    FOREIGN KEY (idioma_id) REFERENCES idiomas (id) ON DELETE CASCADE
+);
